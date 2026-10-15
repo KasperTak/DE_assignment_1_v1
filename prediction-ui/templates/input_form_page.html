@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>House Price prediction</title>
+</head>
+<body>
+
+<form action="/predicthouseprice" method="POST">
+    <h1> Predict the house price</h1>
+    <label for="mah">Median age of a house within a block:</label>
+    <input type="text" id="mah" name="mah" placeholder="mah"> <br>
+
+    <label for="trb">Total number of rooms within a block:</label>
+    <input type="text" id="trb" name="trb" placeholder="trb"> <br>
+
+    <label for="tbb">Total number of bedrooms within a block:</label>
+    <input type="text" id="tbb" name="tbb" placeholder="tbb"> <br>
+
+    <label for="tprb">Total number of people residing within a block:</label>
+    <input type="text" id="tprb" name="tprb" placeholder="tprb"> <br>
+
+    <label for="thb">2Total number of households, a group of people residing within a home unit, for a block:</label>
+    <input type="text" id="thb" name="thb" placeholder="thb"> <br>
+
+    <label for="mihb">Median income for households within a block of houses (in tens of thousands of US Dollars):</label>
+    <input type="text" id="mihb" name="mihb" placeholder="mihb"> <br>
+    <p><input type='submit' value='Predict'/></p>
+</form>
+
+</body>
+</html>
+
+<!-- check https://flask.palletsprojects.com/en/2.3.x/tutorial/templates/ for information if needed -->
