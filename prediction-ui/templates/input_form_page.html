@@ -1,43 +1,112 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>House Price prediction</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>House Price Prediction</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #4285f4, #34a8eb);
+            padding: 24px;
+        }
+        .card {
+            background: #fff;
+            width: 100%;
+            max-width: 520px;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        h1 { margin: 0 0 4px; font-size: 26px; color: #1a2b49; }
+        .subtitle { margin: 0 0 24px; color: #6b7280; font-size: 14px; }
+        .field { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; color: #1a2b49; }
+        .hint { font-weight: 400; color: #6b7280; font-size: 12px; }
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: #fff;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4285f4;
+            box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.25);
+        }
+        button {
+            width: 100%;
+            margin-top: 8px;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            background: #4285f4;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover { background: #2f6fd6; }
+    </style>
 </head>
 <body>
+    <div class="card">
+        <h1>Predict the house price</h1>
+        <p class="subtitle">Fill in the details of a block and get an estimated median house value.</p>
 
-<form action="/predicthouseprice" method="POST">
-    <h1> Predict the house price</h1>
-    <label for="mah">Median age of a house within a block:</label>
-    <input type="text" id="mah" name="mah" placeholder="mah"> <br>
+        <form action="/predicthouseprice" method="POST">
+            <div class="field">
+                <label for="mah">Median house age <span class="hint">(years)</span></label>
+                <input type="number" step="any" id="mah" name="mah" placeholder="e.g. 30" required>
+            </div>
 
-    <label for="trb">Total number of rooms within a block:</label>
-    <input type="text" id="trb" name="trb" placeholder="trb"> <br>
+            <div class="field">
+                <label for="trb">Total rooms <span class="hint">(within the block)</span></label>
+                <input type="number" step="any" id="trb" name="trb" placeholder="e.g. 2000" required>
+            </div>
 
-    <label for="tbb">Total number of bedrooms within a block:</label>
-    <input type="text" id="tbb" name="tbb" placeholder="tbb"> <br>
+            <div class="field">
+                <label for="tbb">Total bedrooms <span class="hint">(within the block)</span></label>
+                <input type="number" step="any" id="tbb" name="tbb" placeholder="e.g. 400" required>
+            </div>
 
-    <label for="tprb">Total number of people residing within a block:</label>
-    <input type="text" id="tprb" name="tprb" placeholder="tprb"> <br>
+            <div class="field">
+                <label for="tprb">Population <span class="hint">(people within the block)</span></label>
+                <input type="number" step="any" id="tprb" name="tprb" placeholder="e.g. 1000" required>
+            </div>
 
-    <label for="thb">Total number of households, a group of people residing within a home unit, for a block:</label>
-    <input type="text" id="thb" name="thb" placeholder="thb"> <br>
+            <div class="field">
+                <label for="thb">Households <span class="hint">(home units within the block)</span></label>
+                <input type="number" step="any" id="thb" name="thb" placeholder="e.g. 380" required>
+            </div>
 
-    <label for="mihb">Median income for households within a block of houses (in tens of thousands of US Dollars):</label>
-    <input type="text" id="mihb" name="mihb" placeholder="mihb"> <br>
-    
-    <label for="op">Proximity to the ocean:</label>
-    <select id="op" name="op">
-        <option value="<1H OCEAN">Less than 1 hour from the ocean</option>
-        <option value="INLAND">Inland</option>
-        <option value="ISLAND">Island</option>
-        <option value="NEAR BY">Near by</option>
-        <option value="Near Ocean">Near ocean</option>
-    </select> <br>
+            <div class="field">
+                <label for="mihb">Median income <span class="hint">(in tens of thousands of US dollars)</span></label>
+                <input type="number" step="any" id="mihb" name="mihb" placeholder="e.g. 4.5" required>
+            </div>
 
+            <div class="field">
+                <label for="op">Proximity to the ocean</label>
+                <select id="op" name="op" required>
+                    <option value="&lt;1H OCEAN">Less than 1 hour from the ocean</option>
+                    <option value="INLAND">Inland</option>
+                    <option value="ISLAND">Island</option>
+                    <option value="NEAR BAY">Near bay</option>
+                    <option value="NEAR OCEAN">Near ocean</option>
+                </select>
+            </div>
 
-    <p><input type='submit' value='Predict'/></p>
-</form>
-
+            <button type="submit">Predict</button>
+        </form>
+    </div>
 </body>
 </html>
-
-<!-- check https://flask.palletsprojects.com/en/2.3.x/tutorial/templates/ for information if needed -->
