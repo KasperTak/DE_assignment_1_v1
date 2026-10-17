@@ -282,7 +282,7 @@ def compare_model(dtr_metrics: dict, linr_metrics: dict) -> str:
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     logging.info(dtr_metrics)
     logging.info(linr_metrics)
-    if dtr_metrics.get("MAE") > linr_metrics.get("MAE"):
+    if dtr_metrics.get("MAE") < linr_metrics.get("MAE"):
         return "DTR"
     else :
         return "LINR"
@@ -364,49 +364,57 @@ def pipeline(project_id: str, data_bucket: str, dataset_filename: str, model_rep
             project_id=project_id,
             model_repo=model_repo,
             model=training_linr_job_run_op.outputs["out_model"]
-        ).after(training_linr_job_run_op)
+        ).after(predict_linr_job_run_op)
     
     
 
 
 # ### Compile the pipeline into a JSON file
 
-# In[ ]:
+if __name__ == "__main__":
+    from kfp import compiler
+    compiler.Compiler().compile(
+        pipeline_func=pipeline,
+        package_path="houseprice_predictor_training_pipeline.yaml",
+        )
+  
+
+# # In[ ]:
 
 
-from kfp import compiler
-compiler.Compiler().compile(pipeline_func=pipeline,
-                            package_path="houseprice_predictor_training_pipeline.yaml")
+# from kfp import compiler
+# compiler.Compiler().compile(pipeline_func=pipeline,
+#                             package_path="houseprice_predictor_training_pipeline.yaml")
 
 
-# ### Submit the pipeline run
+# # # ### Submit the pipeline run
 
-# In[ ]:
+# # # In[ ]:
 
 
-import google.cloud.aiplatform as aip
+# # import google.cloud.aiplatform as aip
 
-# Before initializing, make sure to set the GOOGLE_APPLICATION_CREDENTIALS
-# environment variable to the path of your service account.
-aip.init(
-    project=PROJECT_ID,
-    staging_bucket=PIPELINE_ROOT,
-)
+# # # Before initializing, make sure to set the GOOGLE_APPLICATION_CREDENTIALS
+# # # environment variable to the path of your service account.
+# # aip.init(
+# #     project=PROJECT_ID,
+# #     staging_bucket=PIPELINE_ROOT,
+# # )
 
-# Prepare the pipeline job
-job = aip.PipelineJob(
-    display_name="houseprice-predictor-ct-pipeline",
-    enable_caching=False,
-    template_path="houseprice_predictor_training_pipeline.yaml",
-    pipeline_root=PIPELINE_ROOT,
-    location=REGION,
-    parameter_values={
-        'project_id': PROJECT_ID, # makesure to use your project id (deassignment1-511413)
-        'data_bucket': 'deassignment1_data',  # makesure to use your data bucket name 
-        'dataset_filename': 'housing.csv',     # makesure to upload these to your data bucket from DE2026/lab4/data
-        'model_repo':'deassignment1_models' # make sure to use your model bucket name 
-    }
-)
+# # # Prepare the pipeline job
+# # job = aip.PipelineJob(
+# #     display_name="houseprice-predictor-ct-pipeline",
+# #     enable_caching=False,
+# #     template_path="houseprice_predictor_training_pipeline.yaml",
+# #     pipeline_root=PIPELINE_ROOT,
+# #     location=REGION,
+# #     parameter_values={
+# #         'project_id': PROJECT_ID, # makesure to use your project id (deassignment1-511413)
+# #         'data_bucket': 'deassignment1_data',  # makesure to use your data bucket name 
+# #         'dataset_filename': 'housing.csv',     # makesure to upload these to your data bucket from DE2026/lab4/data
+# #         'model_repo':'deassignment1_models' # make sure to use your model bucket name 
+# #     }
+# # )
 
-job.run()
+# job.run()
 
