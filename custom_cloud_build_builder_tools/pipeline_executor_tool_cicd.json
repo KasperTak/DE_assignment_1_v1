@@ -6,7 +6,7 @@
         "build",
         "-t",
         "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/pipeline-executor:0.0.1",
-        "./lab4/custom_cloud_build_builder_tools/pipeline_executor"
+        "./custom_cloud_build_builder_tools/pipeline_executor"
       ]
     },
     {
