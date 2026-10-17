@@ -1,0 +1,6 @@
+{
+  "project_id": "deassignment1-511413",
+  "data_bucket": "deassignment1_data",
+  "dataset_filename": "housing.csv",
+  "model_repo": "deassignment1_models"
+}
