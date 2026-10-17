@@ -1,0 +1,11 @@
+[
+  {
+    "housing_median_age": 30,
+    "total_rooms": 2000,
+    "total_bedrooms": 400,
+    "population": 1000,
+    "households": 380,
+    "median_income": 4.5,
+    "ocean_proximity": "INLAND"
+  }
+]
