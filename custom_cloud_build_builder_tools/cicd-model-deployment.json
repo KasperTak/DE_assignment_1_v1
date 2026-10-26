@@ -6,8 +6,8 @@
       "args": [
         "storage",
         "cp",
-        "gs://${_MODEL_REPO}/dtr/dtr_model.pkl",
-        "./prediction-api/testResources/dtr_dtr_model.pkl"     
+        "gs://${_MODEL_REPO}/linr/linr_model.pkl",
+        "./prediction-api/testResources/model.pkl"     
       ]
     },		
 	{
