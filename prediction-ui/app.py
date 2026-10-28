@@ -10,7 +10,6 @@ app = Flask(__name__)
 
 # A decorator used to tell the application
 # which URL is associated function
-# TO DO: check app.route
 @app.route('/predicthouseprice', methods=["GET", "POST"])
 
 def predict_house_price():
@@ -42,7 +41,7 @@ def predict_house_price():
         prediction_value = res.json()['result']
         app.logger.info("Prediction Output : %s", prediction_value)
         return render_template("output_form_page.html",
-                               prediction_variable=round(float(prediction_value), 2)) #since output is a number and not binary
+                               prediction_variable=round(float(prediction_value), 2)) 
 
     else:
         return jsonify(message="Method Not Allowed"), 405  # The 405 Method Not Allowed should be used to indicate
