@@ -13,11 +13,11 @@ app = Flask(__name__)
 @app.route('/predicthouseprice', methods=["GET", "POST"])
 
 def predict_house_price():
-    if request.method == "GET":
+    if request.method == "GET": # when opening the page
         return render_template("input_form_page.html")
 
-    elif request.method == "POST":
-        prediction_input = [ #fields from input page
+    elif request.method == "POST": # when pressing "Predict"
+        prediction_input = [ # reeds the input page and translates the value names to the correct column names of model
             {
                 "housing_median_age": int(request.form.get("mah")),
                 "total_rooms": int(request.form.get("trb")),
@@ -35,7 +35,7 @@ def predict_house_price():
         # use an environment variable to find the value of the house price prediction API
         # json.dumps() function will convert a subset of Python objects into a json string.
         # json.loads() method can be used to parse a valid JSON string and convert it into a Python Dictionary.
-        predictor_api_url = os.environ['PREDICTOR_API']
+        predictor_api_url = os.environ['PREDICTOR_API'] # call prediction API, waits for answer and shows the output page with price 
         res = requests.post(predictor_api_url, json=json.loads(json.dumps(prediction_input)))
 
         prediction_value = res.json()['result']
